@@ -2,8 +2,7 @@
 Project: Classes
 Group Members: Fabian Perez Diaz, Keith Payuran, Ghunder Tayupon, Sean Wagner
 
-In Project document, it says we need to write to a file (idk how -sean)
-Perhaps append to write to text file?
+Writing/Reading a file (module 3, part 2 pp)
 
 Program runs in constant loop, until 0 is entered
 """
@@ -16,12 +15,13 @@ class Doctor:  # class 1
         self.__specialization = spec
         self.__workingtime =time
         self.__qualification = qual
-        self.__roomnum = room_num
+        self.__rmnum = room_num
 
     def formatDrIno(self):
 
-    def readDoctorsFile(self):
-
+    def readDoctorsFile(self):  # opens doctors.txt // adds doctor objects to a list
+        doctorstxt = open("doctors.txt", "r")
+        print(doctorstxt)
     def searchDoctorByld(self):
 
     def searchDoctorByName(self):
