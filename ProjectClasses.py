@@ -19,8 +19,8 @@ class Doctor:  # class 1
         self.__qual = qual
         self.__rmnum = room_num
 
-    def formatDrIno(self):  # this function needs to
-        doc = f"{self.__id}_{self.__name}_{self.__spec}_{self.__worktime}_{self.__qual}_{self.__rmnum}"
+    def formatDrInfo(self, id, name, spec, worktime, qual, rmnum):  # this function needs to
+        doc = f"{id}_{name}_{spec}_{worktime}_{qual}_{rmnum}"
         return doc
 
     def enterDrInfo(self):
@@ -34,10 +34,11 @@ class Doctor:  # class 1
         return doc_new
 
     def readDoctorsFile(self):  # opens doctors.txt // adds doctor objects to a list
-        doc_txt = open("doctors.txt", "r")
-        doc_cont = doc_txt.read()
-        doc_txt.close()
-        return print(doc_cont)
+        doc_file = open("doctors.txt", "r")
+        doc_cont = doc_file.read()
+        doc_file.close()
+        doc_list = [doc_cont]
+        return doc_list
 
     def searchDoctorByld(self):
         pass
@@ -46,9 +47,9 @@ class Doctor:  # class 1
         pass
 
     def displayDoctorInfo(self):
-        doc_txt = open("doctors.txt", "r")
-        doc_cont = doc_txt.read()
-        doc_txt.close()
+        doc_file = open("doctors.txt", "r")
+        doc_cont = doc_file.read()
+        doc_file.close()
         return print(doc_cont)
 
     def editDoctorInfo(self):
@@ -59,9 +60,7 @@ class Doctor:  # class 1
         doc_new_qual = input("Enter new Qualification\n")
         doc_new_rm_num = input("Enter new Room Number:\n")
         doc_edit = doc_search_ID, doc_new_name, doc_new_spec, doc_new_timing, doc_new_qual, doc_new_rm_num
-        #formatDrInfo(doc_edit)
-        doc_txt = open("doctors.txt", "a")
-        doc_cont = doc_txt.read()
+        doc_edit_form = self.formatDrInfo(doc_edit)
         # needs more work
 
     def displayDoctorsList(self):
@@ -71,7 +70,10 @@ class Doctor:  # class 1
         pass
 
     def addDrToFile(self):
-        pass
+        doc_file = open("doctors.txt", "a")
+        doc_file.write()  # need function name here
+        doc_file.close()
+        return
 
 
 class Facility:  # class 2
@@ -79,46 +81,59 @@ class Facility:  # class 2
         self.__facilityname = fac_name
 
     def addFacility(self):  # appends facility name to the file
-        fac_txt = open("facilities.txt", "a")
+        fac_file = open("facilities.txt", "a")
         fac_input = input("Enter Facility name:\n")
-        fac_txt.write(fac_input)  # needs to be written on new line
-        fac_txt.close()
+        fac_file.write(fac_input)  # needs to be written on new line
+        fac_file.close()
         return
 
     def displayFacilities(self):  # displays the list of facilities
-        fac_txt = open("facilities.txt", "r")
-        fac_cont = fac_txt.read()
-        fac_txt.close()
-        return print(fac_cont)
+        fac_file = open("facilities.txt", "r")
+        fac_cont = fac_file.read()
+        fac_file.close()
+        return print(fac_cont)  # not done yet
 
     def writeListOffacilitiesToFile(self):  # writes facilities list to file
-        fac_txt = open("facilities.txt", "w")
-        fac_cont = fac_txt.read()
-        fac_txt.close()
-        return fac_txt.write(fac_cont)  # this function needs to be tested
+        fac_file = open("facilities.txt", "w")
+        fac_cont = fac_file.read()
+        fac_file.close()
+        return fac_file.write(fac_cont)  # this function needs to be tested
 
 
 class Laboratory:  # class 3
     def __init__(self, lab_name, lab_cost):
-        self.__labname = lab_name
-        self.__labcost = lab_cost
+        self.__lab_nm = lab_name
+        self.__lab_cst = lab_cost
 
     def addLabToFile(self):
+        lab_file = open("laboratories.txt", "a")
+        lab_file.write()  # need to add function to be added
+        lab_file.close()
         pass
 
     def writeListOFLabsToFile(self):
         pass
 
     def displayLabsList(self):
-        pass
+        lab_file = open("laboratories.txt", "r")
+        lab_cont = lab_file.read()
+        lab_file.close()
+        return lab_cont
 
-    def formatLabInfo(self):
-        pass
+    def formatLabInfo(self, lab_name, lab_cost):
+        lab_form = f"{lab_name}_{lab_cost}"
+        return lab_form
 
     def enterLaboratoryInfo(self):
-        pass
+        lab_name = input("Enter Laboratory facility:\n")
+        lab_cost = input("Enter Laboratory cost:\n")
+        return lab_name, lab_cost
 
     def readLaboratoriesFile(self):
+        lab_file = open("laboratories.txt", "r")
+        lab_cont = lab_file.read()
+        lab_file.close()
+        # need to add lab contents to list
         pass
 
 
@@ -149,57 +164,51 @@ class Patient:  # class 4
         pass
 
     def displayPatientsList(self):
-        pat_txt = open("patients.txt", "r")
-        pat_cont = pat_txt.read()
-        pat_txt.close()
+        pat_file = open("patients.txt", "r")
+        pat_cont = pat_file.read()
+        pat_file.close()
         return print(pat_cont)
 
     def writeListOfPatientsToFile(self):
         pass
 
     def addPatientToFile(self):
-        pat_txt = open("patients.txt", "a")
-        #pat_txt.write(INSERTHERE)
-        #pat_txt.close())
+        pat_file = open("patients.txt", "a")
+        #pat_file.write(INSERTHERE)
+        #pat_file.close())
         return
 
 
 class Management:  # class 5 // displays menu shown in sample run section, continues til 0 is inputted
-    def __init__(self):
-        cat_type = 1
-        doc_type = 1
-        self.__cat_type = cat_type
-        self.__doc_type = doc_type
-        self.__cat_type = int(self.__cat_type)
-        self.__doc_type = int(self.__doc_type)
-
     def DisplayMenu(self):
         print("Welcome to Alberta Hospital (AH) Management System\nSelect from the following options, "
-              "or select 0 to stop:\n")
-        cat_type = input("1 -  Doctors\n2 -  Facilities\n3 -  Laboratories\n4 -  Patients\n")
+              "or select 0 to stop:")
+        cat_type = input("1 -  Doctors\n2 -  Facilities\n3 -  Laboratories\n4 -  Patients\n\n")
+        cat_type = int(cat_type)
+        print(" ")
         if cat_type == 1:  # doctors menu
             doc_type = input("Doctors Menu:\n1 - Display Doctors list\n2 - Search for doctor by ID\n3 - "
                 "Search for doctor by name\n4 - Add doctor\n5 - Edit doctor info\n6 - Back to the Main Menu\n")
             if doc_type == 1:
                 # show doctor list here
-                print("Back to the previous menu\n")
+                pass
             if doc_type == 2:
                 # ask for doctor ID, then match to doctor
-                print("Back to the previous menu\n")
+                pass
             if doc_type == 3:
                 # search doctor by name, then match to doctor
-                print("Back to the previous menu\n")
+                pass
             if doc_type == 4:
                 # add doctor to list
                 #enterDrInfo()
-                print("Back to the previous menu\n")
+                pass
             if doc_type == 5:
                 # edit doctor info
                 pass
             if doc_type == 6:
                 # redirect to start menu
-                print("Back to the previous menu\n")
-        elif cat_type == 2:  # facilities menu
+                pass
+        if cat_type == 2:  # facilities menu
             fac_type = input("Facilities Menu:\n1 - Display Facilities list\n2 - Add Facility\n"
                              "3 - Back to the Main Menu\n")
             if fac_type == 1:
@@ -208,7 +217,7 @@ class Management:  # class 5 // displays menu shown in sample run section, conti
                 fac_new_name = input("Enter Facility name:\n")
             if fac_type == 3:
                 pass
-        elif cat_type == 3:  # laboratories menu
+        if cat_type == 3:  # laboratories menu
             lab_type = input("Laboratories Menu:\n1 - Display laboratories list\n2 - Add laboratory\n"
                              "3 - Back to the Main Menu\n")
             if lab_type == 1:
@@ -219,9 +228,9 @@ class Management:  # class 5 // displays menu shown in sample run section, conti
                 pass
             if lab_type == 3:
                 print("Back to the previous menu\n")
-        elif cat_type == 4:  # patients menu
+        if cat_type == 4:  # patients menu
             pat_type = input("Patients Menu:\n1 - Display patients list\n2 - Search for patient by ID\n"
-                             "3 - Add patient\n4 - Edit patient info\n5 - Back to the Main Menu:\n")
+                             "3 - Add patient\n4 - Edit patient info\n5 - Back to the Main Menu\n")
             if pat_type == 1:
                 # display patients list
                 pass
@@ -236,8 +245,8 @@ class Management:  # class 5 // displays menu shown in sample run section, conti
                 pass
             if pat_type == 5:
                 print("Back to the previous menu\n")
-        elif cat_type == 0:
-            pass
+        if cat_type == 4:
+            print('Test')
 
 
 run = Management()
