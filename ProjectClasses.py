@@ -145,14 +145,25 @@ class Patient:  # class 4
         self.__pgen = gen
         self.__page = age
 
-    def formatPatientInfo(self):
-        pass
+    def formatPatientInfo(self, id, name, disease, gender, age):
+        patient = f"{id}_{name}_{disease}_{gender}_{age}"
+        return patient
+
 
     def enterPatientInfo(self):
-        pass
+        patient_ID = input("Please enter your ID:\n")
+        patient_name = input("Please enter your Name:\n")
+        patient_disease = input("Please enter the disease:\n")
+        patient_gender = input("Please enter your gender:\n")
+        patient_age = input("Please enter your age:\n")
 
-    def readPatientsFile(self):
-        pass
+    def readPatientsFile(self): # opens patients.txt // adds patient objects to a list
+        pat_file = open("patients.txt", "r")
+        pat_cont = pat_file.read()
+        pat_file.close()
+        pat_list = [doc_cont]
+        return pat_list
+    
 
     def searchPatientByld(self):
         pass
