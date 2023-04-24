@@ -9,16 +9,22 @@
 Trying to figure out how to format text file to table
 also how to figure out appending/searching the data
 '''
-class Test:
-    def formatDrInfo(self):
+    def formatDrInfo():
         doc_file = open("doctors.txt", "r")
         doc_cont = doc_file.read()
-        for category in doc_cont.split("_"):
-            id = category[1]
-            name = category[2]
-            spec = category[3]
-            wktime = category[4]
-            qual = category[5]
-            rmnum = category[6]
-            return print(id)
+        doc_cont.split("_")
+        value = 0
+        id = []
+        name = []
+        spec = []
+        wktime = []
+        qual = []
+        rmnum = []
 
+        for sentence in doc_cont:
+
+
+
+
+x = Doctor
+x.formatDrInfo()
