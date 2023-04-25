@@ -16,57 +16,62 @@ Patient:
 3 - Works
 4 - Works
 5 - Works
+
+Management:
+1 - Works, but if you enter a Doctor/Patient, then back to Main Menu, you can't exit the program
+2 - Works
+3 - Works
 """
 
 
 class Doctor:
-    def __init__(self, doc_id=None, doc_name=None, doc_spec=None, doc_timing=None,
-                 doc_qual=None, doc_rm_num=None):
-        self.__doc_id = doc_id
-        self.__doc_name = doc_name
-        self.__doc_spec = doc_spec
-        self.__doc_timing = doc_timing
-        self.__doc_qual = doc_qual
-        self.__doc_rm_num = doc_rm_num
+    def __init__(self, doc_id, doc_name, doc_spec, doc_timing,
+                 doc_qual, doc_rm_num):
+        self.doc_id = doc_id
+        self.doc_name = doc_name
+        self.doc_spec = doc_spec
+        self.doc_timing = doc_timing
+        self.doc_qual = doc_qual
+        self.doc_rm_num = doc_rm_num
 
     def get_doctor_id(self):
-        return self.__doc_id
+        return self.doc_id
 
     def set_doctor_id(self, new_id):
-        self.__doc_id = new_id
+        self.doc_id = new_id
 
     def get_name(self):
-        return self.__doc_name
+        return self.doc_name
 
     def set_name(self, new_name):
-        self.__doc_name = new_name
+        self.doc_name = new_name
 
     def get_specialization(self):
-        return self.__doc_spec
+        return self.doc_spec
 
     def set_specialization(self, new_specialization):
-        self.__doc_spec = new_specialization
+        self.doc_spec = new_specialization
 
     def get_working_time(self):
-        return self.__doc_timing
+        return self.doc_timing
 
     def set_working_time(self, new_working_time):
-        self.__doc_timing = new_working_time
+        self.doc_timing = new_working_time
 
     def get_qualification(self):
-        return self.__doc_qual
+        return self.doc_qual
 
     def set_qualification(self, new_qualification):
-        self.__doc_qual = new_qualification
+        self.doc_qual = new_qualification
 
     def get_room_number(self):
-        return self.__doc_rm_num
+        return self.doc_rm_num
 
     def set_room_number(self, new_room_number):
-        self.__doc_rm_num = new_room_number
+        self.doc_rm_num = new_room_number
 
     def __str__(self):
-        return f"{self.__doc_id}_{self.__doc_name}_{self.__doc_spec}_{self.__doc_timing}_{self.__doc_qual}_{self.__doc_rm_num}"
+        return f"{self.doc_id}_{self.doc_name}_{self.doc_spec}_{self.doc_timing}_{self.doc_qual}_{self.doc_rm_num}"
 
 
 class DoctorManager:
@@ -75,7 +80,7 @@ class DoctorManager:
         self.read_doctors_file()
 
     def format_dr_info(self, doctor):
-        return f"{doctor.__doc_id}_{doctor.__doc_name}_{doctor.__doc_spec}_{doctor.__doc_timing}_{doctor.__doc_qual}_{doctor.__doc_rm_num}"
+        return f"{doctor.doc_id}_{doctor.doc_name}_{doctor.doc_spec}_{doctor.doc_timing}_{doctor.doc_qual}_{doctor.doc_rm_num}"
 
     def enter_dr_info(self):
         doc_id = input("Enter the doctor\'s ID:\t")
@@ -84,8 +89,7 @@ class DoctorManager:
         doc_timing = input("Enter the doctor\'s timing (e.g., 7am-10pm):\t")
         doc_qual = input("Enter the doctor\'s qualification:\t")
         doc_rm_num = input("Enter the doctor\'s room number:\t")
-        doctor = doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num
-        return doctor
+        return Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
 
     def read_doctors_file(self):
         with open("doctors.txt", "r") as f:
@@ -95,7 +99,8 @@ class DoctorManager:
                 self.doctors.append(doctor)
                 return
 
-    def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
+    def search_doctor_by_id(
+            self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
         doc_id = input("Enter the doctor's ID:\t")
         for doctor in self.doctors:
             if doctor.get_doctor_id() == doc_id:
@@ -104,7 +109,8 @@ class DoctorManager:
         else:
             return print("Can't find the doctor with the entered ID.")
 
-    def search_doctor_by_name(self):  #searches for a doctor/accepts doctor name from user/check if the name exist or not/if not it displays "can't find the doctor.."
+    def search_doctor_by_name(
+            self):  # searches for a doctor/accepts doctor name from user/check if the name exist or not/if not it displays "can't find the doctor.."
         doc_name = input("Enter the doctor's name:\t")
         for doctor in self.doctors:
             if doctor.get_name() == doc_name:
@@ -115,18 +121,18 @@ class DoctorManager:
 
     def display_doctor_info(self, doctor):  # it takes a doctor object and displays doctor info as in the project output file.
         print(" ")
-        print(f"Doctor ID: {doctor.__doc_id}")
-        print(f"Doctor Name: {doctor.__doc_name}")
-        print(f"Doctor Specialization: {doctor.__doc_spec}")
-        print(f"Doctor Working Time: {doctor.__doc_timing}")
-        print(f"Doctor Qualification: {doctor.__doc_qual}")
-        print(f"Doctor Room Number: {doctor.__doc_rm_num}")
+        print(f"Doctor ID: {doctor.doc_id}")
+        print(f"Doctor Name: {doctor.doc_name}")
+        print(f"Doctor Specialization: {doctor.doc_spec}")
+        print(f"Doctor Working Time: {doctor.doc_timing}")
+        print(f"Doctor Qualification: {doctor.doc_qual}")
+        print(f"Doctor Room Number: {doctor.doc_rm_num}")
         print(" ")
 
     def edit_doctor_info(self):
         doc_id = input("Please enter the id of the doctor that you want to edit their information:\t")
         for doctor in self.doctors:
-            if doctor.__doc_id == doc_id:
+            if doctor.doc_id == doc_id:
                 doc_new_name = input("Enter new name:\t")
                 doc_new_specialist = input("Enter new Specialist:\t")
                 doc_new_timing = input("Enter new Timing:\t")
@@ -156,7 +162,7 @@ class DoctorManager:
 
 
 class Patient:
-    def __init__(self, pid="", name="", disease="", gender="", age=0):
+    def __init__(self, pid="", name="", disease="", gender="", age=""):
         self.pid = pid
         self.name = name
         self.disease = disease
@@ -218,7 +224,7 @@ class PatientManager:
             for line in f:
                 pid, name, disease, gender, age = line.strip().split("_")
                 patient = Patient(pid, name, disease, gender, age)
-                self.patients.append(patient)
+                return self.patients.append(patient)
 
     def search_patient_by_id(self):
         pid = input("Enter patient ID: ")
@@ -236,6 +242,7 @@ class PatientManager:
         print(f"Gender: {patient.gender}")
         print(f"Age: {patient.age}")
         print(" ")
+        return
 
     def edit_patient_info_by_id(self):
         pid = input("Enter patient ID to edit: ")
@@ -246,7 +253,6 @@ class PatientManager:
                 patient.gender = input("Enter new gender: ")
                 patient.age = input("Enter new age: ")
                 self.write_list_of_patients_to_file()
-                print("Patient information updated.")
                 return
         print("Cannot find the patient...")
 
@@ -274,17 +280,15 @@ class Management:
         self.patient_manager = PatientManager()
 
     def display_menu(self):
-        while True:
-            choice = input("Welcome to Alberta Hospital (AH) Management System\nSelect from the following options, or "
-                           "select 3 to stop:\n1 -  Doctors\n2 -  Patients\n3 -  Exit Program\n")
-            if choice == "1":
+        choice_1 = input("Welcome to Alberta Hospital (AH) Management System\nSelect from the following options, or "
+                         "select 3 to stop:\n1 -  Doctors\n2 -  Patients\n3 -  Exit Program\n")
+        while choice_1 != "3":
+            if choice_1 == "1":
                 print(" ")
                 self.display_doctor_menu()
-            elif choice == "2":
+            elif choice_1 == "2":
                 print(" ")
                 self.display_patient_menu()
-            elif choice == "3":
-                break
             else:
                 print("Invalid choice. Please try again.")
 

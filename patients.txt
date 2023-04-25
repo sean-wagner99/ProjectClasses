@@ -3,4 +3,3 @@ id_Name_Disease_Gender_Age
 13_Sumit_Cold_Male_23
 14_Alok_Maleriya_Male_45
 15_Ravi_Diabetes_Male_25
-67_Susie_Stupidity_Male_24
