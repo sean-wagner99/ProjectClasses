@@ -71,7 +71,7 @@ class Doctor:
 
 class DoctorManager:
     def __init__(self):
-        pass
+        self.doctors = []
 
     def format_dr_info(self, doctor):
         return f"{doctor.__doc_id}_{doctor.__doc_name}_{doctor.__doc_spec}_{doctor.__doc_timing}_{doctor.__doc_qual}_{doctor.__doc_rm_num}"
@@ -94,14 +94,31 @@ class DoctorManager:
                 self.doctors.append(doctor)
         pass
 
-    def search_doctor_by_id(self):
-        pass
+    def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
+        doc_id = input("Enter the doctor's ID:\t")
+        for doctor in self.doctors:
+            if doctor.get_doctor_id() == doc_id:
+                self.display_doctor_info(doctor)
+                break
+        else:
+            print("Can't find the doctor with the entered ID.")
 
-    def search_doctor_by_name(self):
-        pass
+    def search_doctor_by_name(self):  #searches for a doctor/accepts doctor name from user/check if the name exist or not/if not it displays "can't find the doctor.."
+        doc_name = input("Enter the doctor's name:\t")
+        for doctor in self.doctors:
+            if doctor.get_name() == doc_name:
+                self.display_doctor_info(doctor)
+                break
+        else:
+            print("Can't find the doctor with the entered name.")
 
-    def display_doctor_info(self, doctor):
-        pass
+    def display_doctor_info(self, doctor):  # it takes a doctor object and displays doctor info as in the project output file.
+        print(f"Doctor ID: {doctor.get_doctor_id()}")
+        print(f"Doctor Name: {doctor.get_name()}")
+        print(f"Doctor Specialization: {doctor.get_specialization()}")
+        print(f"Doctor Working Time: {doctor.get_working_time()}")
+        print(f"Doctor Qualification: {doctor.get_qualification()}")
+        print(f"Doctor Room Number: {doctor.get_room_number()}")
 
     def edit_doctor_info(self):
         choice = input("Please enter the id of the doctor that you want to edit their information:\t")
