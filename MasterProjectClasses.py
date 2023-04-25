@@ -6,8 +6,8 @@ Doctor:
 1 - Works, but should be formatted to a table // first entry displayed should be hidden
 2 - Works, but should be formatted to a table
 3 - Works, but should be formatted to a table
-4 - Works*****, but needs to display {doctor_id} instead of "New Doctor added."
-5 - Works*****
+4 - Works, but needs to display {doctor_id} instead of "New Doctor added."
+5 - Works
 6 - Works
 
 Patient:
@@ -21,8 +21,6 @@ Management:
 1 - Works, just needs some formatting
 2 - Works, just needs some formatting
 3 - Works, but if you open Doctor/Patient, go to Main Menu, then try to exit, it will not exit
-
-The write_to_file for doctor is rewriting text into a single line
 """
 
 
@@ -82,7 +80,7 @@ class DoctorManager:
         self.read_doctors_file()
 
     def format_dr_info(self, doctor):
-        return f"{doctor.doctor_id}_{doctor.name}_{doctor.specialization}_{doctor.working_time}_{doctor.qualification}_{doctor.room_number}"
+        return f"{doctor.doctor_id}_{doctor.name}_{doctor.specialization}_{doctor.working_time}_{doctor.qualification}_{doctor.room_number}\n"
 
     def enter_dr_info(self):
         doc_id = input("Enter the doctor\'s ID:\t")
@@ -323,7 +321,7 @@ class Management:
             elif choice == "2":
                 self.patient_manager.search_patient_by_id()
             elif choice == "3":
-                new_patient = self.patient_manager.add_patient_to_file()
+                self.patient_manager.add_patient_to_file()
                 self.patient_manager.write_list_of_patients_to_file()
             elif choice == "4":
                 self.patient_manager.edit_patient_info_by_id()
