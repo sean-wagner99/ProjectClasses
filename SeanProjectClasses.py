@@ -72,6 +72,7 @@ class Doctor:
 class DoctorManager:
     def __init__(self):
         self.doctors = []
+        self.read_doctors_file()
 
     def format_dr_info(self, doctor):
         return f"{doctor.__doc_id}_{doctor.__doc_name}_{doctor.__doc_spec}_{doctor.__doc_timing}_{doctor.__doc_qual}_{doctor.__doc_rm_num}"
@@ -92,46 +93,49 @@ class DoctorManager:
                 doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num = line.strip().split("_")
                 doctor = Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
                 self.doctors.append(doctor)
-        pass
+                return
 
     def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
         doc_id = input("Enter the doctor's ID:\t")
         for doctor in self.doctors:
             if doctor.get_doctor_id() == doc_id:
                 self.display_doctor_info(doctor)
-                break
+                return
         else:
-            print("Can't find the doctor with the entered ID.")
+            return print("Can't find the doctor with the entered ID.")
 
     def search_doctor_by_name(self):  #searches for a doctor/accepts doctor name from user/check if the name exist or not/if not it displays "can't find the doctor.."
         doc_name = input("Enter the doctor's name:\t")
         for doctor in self.doctors:
             if doctor.get_name() == doc_name:
                 self.display_doctor_info(doctor)
-                break
+                return
         else:
             print("Can't find the doctor with the entered name.")
 
     def display_doctor_info(self, doctor):  # it takes a doctor object and displays doctor info as in the project output file.
-        print(f"Doctor ID: {doctor.get_doctor_id()}")
-        print(f"Doctor Name: {doctor.get_name()}")
-        print(f"Doctor Specialization: {doctor.get_specialization()}")
-        print(f"Doctor Working Time: {doctor.get_working_time()}")
-        print(f"Doctor Qualification: {doctor.get_qualification()}")
-        print(f"Doctor Room Number: {doctor.get_room_number()}")
+        print(" ")
+        print(f"Doctor ID: {doctor.__doc_id}")
+        print(f"Doctor Name: {doctor.__doc_name}")
+        print(f"Doctor Specialization: {doctor.__doc_spec}")
+        print(f"Doctor Working Time: {doctor.__doc_timing}")
+        print(f"Doctor Qualification: {doctor.__doc_qual}")
+        print(f"Doctor Room Number: {doctor.__doc_rm_num}")
+        print(" ")
 
     def edit_doctor_info(self):
-        choice = input("Please enter the id of the doctor that you want to edit their information:\t")
-        # call search doctor by ID
-        doc_new_name = input("Enter new name:\t")
-        doc_new_specialist = input("Enter new Specialist:\t")
-        doc_new_timing = input("Enter new Timing:\t")
-        doc_new_qualification = input("Enter new Qualification:\t")
-        doc_new_room = input("Enter new Room number:\t")
-        # compile new info together for formatting
-        # call function here
-        # print(f"Doctor whose ID is {} has been edited\n")
-        pass
+        doc_id = input("Please enter the id of the doctor that you want to edit their information:\t")
+        for doctor in self.doctors:
+            if doctor.__doc_id == doc_id:
+                doc_new_name = input("Enter new name:\t")
+                doc_new_specialist = input("Enter new Specialist:\t")
+                doc_new_timing = input("Enter new Timing:\t")
+                doc_new_qualification = input("Enter new Qualification:\t")
+                doc_new_room = input("Enter new Room number:\t")
+                self.write_list_of_doctors_to_file()
+                return print(f"Doctor whose ID is {doc_id} has been edited\n")
+            else:
+                return print(f"Can't find the doctor with the same ID on the system")
 
     def display_doctors_list(self):  # needs to be represented as a table
         for doctor in self.doctors:
@@ -145,7 +149,7 @@ class DoctorManager:
 
     def add_dr_to_file(self):
         doctor = self.enter_dr_info()
-        self.doctor.append(doctor)
+        self.doctors.append(doctor)
         with open("doctors.txt", "a") as f:
             f.write(self.format_dr_info(doctor))
         return print("New doctor added.")
@@ -225,11 +229,13 @@ class PatientManager:
         print("Can't find the patient...")
 
     def display_patient_info(self, patient):  # needs to be represented as a table
+        print(" ")
         print(f"Patient ID: {patient.pid}")
         print(f"Name: {patient.name}")
         print(f"Disease: {patient.disease}")
         print(f"Gender: {patient.gender}")
         print(f"Age: {patient.age}")
+        print(" ")
 
     def edit_patient_info_by_id(self):
         pid = input("Enter patient ID to edit: ")
