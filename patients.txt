@@ -1,3 +1,5 @@
 id_Name_Disease_Gender_Age
-g_Hello_World_I_Am
-Sean_s_s_s_s
+12_Pankaj_Cancer_Male_30
+13_Sumit_Cold_Male_23
+14_Alok_Maleriya_Male_45
+15_Ravi_Diabetes_Male_25
