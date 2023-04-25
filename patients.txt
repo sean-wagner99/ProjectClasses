@@ -1,11 +1,3 @@
 id_Name_Disease_Gender_Age
-12_no_no_g_g
-13_Sumit_Cold_Male_23
-14_Alok_Maleriya_Male_45
-15_Ravi_Diabetes_Male_25
-1_Seanny Boi_Still Stupid_Male_24
-2_Testty_None Still_NA_5
-3_s_s_s_s
-5_no_no_no_no
-6_s_s_s_s
-12_s_s_s_s
+g_g_g_g_g
+Sean_Sean_Stupid_NA_24

@@ -99,8 +99,7 @@ class DoctorManager:
                 self.doctors.append(doctor)
                 return
 
-    def search_doctor_by_id(
-            self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
+    def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
         doc_id = input("Enter the doctor's ID:\t")
         for doctor in self.doctors:
             if doctor.get_doctor_id() == doc_id:

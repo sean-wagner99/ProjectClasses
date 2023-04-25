@@ -3,12 +3,12 @@ Sean's Project Classes Branch
 
 Testing Below
 Doctor:
-1 -
-2 -
-3 -
-4 -
-5 -
-6 -
+1 - Works, but only finds first line of text file
+2 - Works, but only finds first line of text file
+3 - Works, but only finds first line of text file
+4 - Works, but only finds first line of text file
+5 - Works, but only finds first line of text file
+6 - Works
 
 Patient:
 1 - Works, but should be formatted to a table // first entry displayed should be hidden
@@ -21,12 +21,13 @@ Management:
 1 -
 2 - Works, just needs some formatting
 3 - Works, but if you open Doctor/Patient, go to Main Menu, then try to exit, it will not exit
+
+Something may be wrong with Doctor.qualification
 """
 
 
 class Doctor:
-    def __init__(self, doctor_id=None, name=None, specialization=None, working_time=None,
-                 qualification=None, room_number=None):
+    def __init__(self, doctor_id="", name="", specialization="", working_time="", qualification="", room_number=""):
         self.doctor_id = doctor_id
         self.name = name
         self.specialization = specialization
@@ -77,37 +78,86 @@ class Doctor:
 class DoctorManager:
 
     def __init__(self):
-        pass
+        self.doctors = []
+        self.read_doctors_file()
 
     def format_dr_info(self, doctor):
-        pass
+        return f"{doctor.doctor_id}_{doctor.name}_{doctor.specialization}_{doctor.working_time}_{doctor.qualification}_{doctor.room_number}"
 
     def enter_dr_info(self):
-        pass
+        doc_id = input("Enter the doctor\'s ID:\t")
+        doc_name = input("Enter the doctor\'s name:\t")
+        doc_spec = input("Enter the doctor\'s speciality:\t")
+        doc_timing = input("Enter the doctor\'s timing (e.g., 7am-10pm):\t")
+        doc_qual = input("Enter the doctor\'s qualification:\t")
+        doc_rm_num = input("Enter the doctor\'s room number:\t")
+        return Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
 
     def read_doctors_file(self):
-        pass
+        with open("doctors.txt", "r") as f:
+            for line in f:
+                doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num = line.strip().split("_")
+                doctor = Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
+                self.doctors.append(doctor)
+                return
 
-    def search_doctor_by_id(self):
-        pass
+    def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
+        doc_id = input("\nEnter the doctor's ID:\t")
+        for doctor in self.doctors:
+            if doctor.get_doctor_id() == doc_id:
+                self.display_doctor_info(doctor)
+                return
+        else:
+            return print("Can't find the doctor with the entered ID.")
 
     def search_doctor_by_name(self):
-        pass
+        doc_name = input("\nEnter the doctor's name:\t")
+        for doctor in self.doctors:
+            if doctor.get_name() == doc_name:
+                self.display_doctor_info(doctor)
+                return
+        else:
+            print("Can't find the doctor with the entered name.")
 
-    def display_doctor_info(self, Doctor):
-        pass
+    def display_doctor_info(self, doctor):
+        print(" ")
+        print(f"Doctor ID: {doctor.doctor_id}")
+        print(f"Doctor Name: {doctor.name}")
+        print(f"Doctor Specialization: {doctor.specialization}")
+        print(f"Doctor Working Time: {doctor.working_time}")
+        print(f"Doctor Qualification: {doctor.qualification}")
+        print(f"Doctor Room Number: {doctor.room_number}")
 
     def edit_doctor_info(self):
-        pass
+        doc_id = input("Please enter the id of the doctor that you want to edit their information:\t")
+        for doctor in self.doctors:
+            if doctor.doc_id == doc_id:
+                doc_new_name = input("Enter new name:\t")
+                doc_new_specialist = input("Enter new Specialist:\t")
+                doc_new_timing = input("Enter new Timing:\t")
+                doc_new_qualification = input("Enter new Qualification:\t")
+                doc_new_room = input("Enter new Room number:\t")
+                self.write_list_of_doctors_to_file()
+                return print(f"Doctor whose ID is {doc_id} has been edited\n")
+            else:
+                return print(f"Can't find the doctor with the same ID on the system")
 
     def display_doctors_list(self):
-        pass
+        for doctor in self.doctors:
+            self.display_doctor_info(doctor)
+            print()
 
     def write_list_of_doctors_to_file(self):
-        pass
+        with open("doctors.txt", "w") as f:
+            for doctor in self.doctors:
+                f.write(self.format_dr_info(doctor))
 
     def add_dr_to_file(self):
-        pass
+        doctor = self.enter_dr_info()
+        self.doctors.append(doctor)
+        with open("doctors.txt", "a") as f:
+            f.write(self.format_dr_info(doctor))
+        return print("New doctor added.")
 
 
 class Patient:
@@ -161,8 +211,7 @@ class PatientManager:
         return f"{patient.pid}_{patient.name}_{patient.disease}_{patient.gender}_{patient.age}\n"
 
     def enter_patient_info(self):
-        print(" ")
-        pid = input("Enter patient ID: ")
+        pid = input("\nEnter patient ID: ")
         name = input("Enter patient name: ")
         disease = input("Enter patient disease: ")
         gender = input("Enter patient gender: ")
@@ -178,8 +227,7 @@ class PatientManager:
                 self.patients.append(patient)
 
     def search_patient_by_id(self):
-        print(" ")
-        pid = input("Enter patient ID: ")
+        pid = input("\nEnter patient ID: ")
         for patient in self.patients:
             if patient.pid == pid:
                 self.display_patient_info(patient)
@@ -188,16 +236,14 @@ class PatientManager:
         print("Can't find the patient...")
 
     def display_patient_info(self, patient):
-        print(" ")
-        print(f"Patient ID: {patient.pid}")
+        print(f"\nPatient ID: {patient.pid}")
         print(f"Name: {patient.name}")
         print(f"Disease: {patient.disease}")
         print(f"Gender: {patient.gender}")
         print(f"Age: {patient.age}")
 
     def edit_patient_info_by_id(self):
-        print(" ")
-        pid = input("Enter patient ID to edit: ")
+        pid = input("\nEnter patient ID to edit: ")
         for patient in self.patients:
             if patient.pid == pid:
                 patient.name = input("Enter new name: ")
@@ -249,7 +295,7 @@ class Management:
 
     def display_doctor_menu(self):
         while True:
-            choice = input("Doctor Menu:\n1 - Display Doctors list\n2 - Search for doctor by ID\n3 - "
+            choice = input("\nDoctor Menu:\n1 - Display Doctors list\n2 - Search for doctor by ID\n3 - "
                            "Search for doctor by name\n4 - Add doctor\n5 - Edit doctor info\n6 - Back to Main Menu\n")
             if choice == "1":
                 self.doctor_manager.display_doctors_list()
@@ -273,7 +319,7 @@ class Management:
 
     def display_patient_menu(self):
         while True:
-            choice = input("Patient Menu:\n1 - Display patients list\n2 - Search for patient by ID\n3 - Add patient\n"
+            choice = input("\nPatient Menu:\n1 - Display patients list\n2 - Search for patient by ID\n3 - Add patient\n"
                            "4 - Edit patient info\n5 - Back to the Main Menu\n")
             if choice == "1":
                 self.patient_manager.display_patients_list()
