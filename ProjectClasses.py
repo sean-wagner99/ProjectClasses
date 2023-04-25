@@ -262,6 +262,5 @@ class Management:  # class 5 // displays menu shown in sample run section, conti
                 print('Test')
 
 
-
 run = Management()
 run.DisplayMenu()
