@@ -3,11 +3,11 @@ Sean's Project Classes Branch
 
 Testing Below
 Doctor:
-1 - Works, but only finds first line of text file
-2 - Works, but only finds first line of text file
-3 - Works, but only finds first line of text file
-4 - Works, but only finds first line of text file
-5 - Works, but only finds first line of text file
+1 - Works, but should be formatted to a table // first entry displayed should be hidden
+2 - Works, but should be formatted to a table
+3 - Works, but should be formatted to a table
+4 - Works*****, but needs to display {doctor_id} instead of "New Doctor added."
+5 - Works*****
 6 - Works
 
 Patient:
@@ -18,11 +18,11 @@ Patient:
 5 - Works
 
 Management:
-1 -
+1 - Works, just needs some formatting
 2 - Works, just needs some formatting
 3 - Works, but if you open Doctor/Patient, go to Main Menu, then try to exit, it will not exit
 
-Something may be wrong with Doctor.qualification
+The write_to_file for doctor is rewriting text into a single line
 """
 
 
@@ -99,7 +99,6 @@ class DoctorManager:
                 doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num = line.strip().split("_")
                 doctor = Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
                 self.doctors.append(doctor)
-                return
 
     def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
         doc_id = input("\nEnter the doctor's ID:\t")
@@ -131,16 +130,16 @@ class DoctorManager:
     def edit_doctor_info(self):
         doc_id = input("Please enter the id of the doctor that you want to edit their information:\t")
         for doctor in self.doctors:
-            if doctor.doc_id == doc_id:
-                doc_new_name = input("Enter new name:\t")
-                doc_new_specialist = input("Enter new Specialist:\t")
-                doc_new_timing = input("Enter new Timing:\t")
-                doc_new_qualification = input("Enter new Qualification:\t")
-                doc_new_room = input("Enter new Room number:\t")
+            if doctor.doctor_id == doc_id:
+                doctor.name = input("Enter new name:\t")
+                doctor.specialization = input("Enter new Specialist:\t")
+                doctor.working_time = input("Enter new Timing:\t")
+                doctor.qualification = input("Enter new Qualification:\t")
+                doctor.room_number = input("Enter new Room number:\t")
                 self.write_list_of_doctors_to_file()
-                return print(f"Doctor whose ID is {doc_id} has been edited\n")
-            else:
-                return print(f"Can't find the doctor with the same ID on the system")
+                print(f"\nDoctor whose ID is {doc_id} has been edited\n")
+                return
+        print("Cannot find the patient...")
 
     def display_doctors_list(self):
         for doctor in self.doctors:
@@ -304,13 +303,11 @@ class Management:
             elif choice == "3":
                 self.doctor_manager.search_doctor_by_name()
             elif choice == "4":
-                new_doctor = self.doctor_manager.add_dr_to_file()
+                self.doctor_manager.add_dr_to_file()
                 self.doctor_manager.write_list_of_doctors_to_file()
-                print("New doctor added successfully.")
             elif choice == "5":
                 self.doctor_manager.edit_doctor_info()
                 self.doctor_manager.write_list_of_doctors_to_file()
-                print("Doctor information updated successfully.")
             elif choice == "6":
                 print(" ")
                 self.display_menu()
