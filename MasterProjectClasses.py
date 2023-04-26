@@ -99,6 +99,7 @@ class DoctorManager:
 
     def read_doctors_file(self):
         with open("doctors.txt", "r") as f:
+            next(f)
             for line in f:
                 doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num = line.strip().split("_")
                 doctor = Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
@@ -123,12 +124,12 @@ class DoctorManager:
             print("Can't find the doctor with the same name on the system.")
 
     def display_doctor_info(self, doctor):
-        print(f"\nDoctor ID: {doctor.doctor_id}")
-        print(f"Doctor Name: {doctor.name}")
-        print(f"Doctor Specialization: {doctor.specialization}")
-        print(f"Doctor Working Time: {doctor.working_time}")
-        print(f"Doctor Qualification: {doctor.qualification}")
-        print(f"Doctor Room Number: {doctor.room_number}")
+        print(f"\n{doctor.doctor_id}\t", end="")
+        print(f"{doctor.name}\t", end="")
+        print(f"{doctor.specialization}\t", end="")
+        print(f"{doctor.working_time}\t", end="")
+        print(f"{doctor.qualification}\t", end="")
+        print(f"{doctor.room_number}\t", end="")
 
     def edit_doctor_info(self):
         doc_id = input("Please enter the id of the doctor that you want to edit their information:\t")
@@ -144,10 +145,11 @@ class DoctorManager:
                 return
         print("Cannot find the Doctor with the same id on the system")
 
-    def display_doctors_list(self):  # for this function we need to skip the first entry
+    def display_doctors_list(self):
+        print("Doctor ID\tName\tSpecialization\tWorking Time\tQualification\tRoom Number")
         for doctor in self.doctors:
             self.display_doctor_info(doctor)
-            print()
+            print(" ")
 
     def write_list_of_doctors_to_file(self):
         with open("doctors.txt", "w") as f:
@@ -207,11 +209,6 @@ class Patient:
 class PatientManager:
     def __init__(self):
         self.patients = []
-        self.pid = []
-        self.name = []
-        self.disease = []
-        self.gender = []
-        self.age = []
         self.read_patients_file()
 
     def format_patient_info_for_file(self, patient):
@@ -228,22 +225,11 @@ class PatientManager:
 
     def read_patients_file(self):
         with open("patients.txt", "r") as f:
+            next(f)
             for line in f:
-                category = line.strip().split("_")
-                pid = category[0]
-                name = category[1]
-                disease = category[2]
-                gender = category[3]
-                age = category[4]
+                pid, name, disease, gender, age = line.strip().split("_")
                 patient = Patient(pid, name, disease, gender, age)
-                self.pid.append(pid)
-                self.name.append(name)
-                self.disease.append(disease)
-                self.gender.append(gender)
-                self.age.append(age)
                 self.patients.append(patient)
-                # any changes done in this function should be done to the doctor class as well
-                # not sure what to do with categories yet
 
     def search_patient_by_id(self):
         pid = input("\nEnter patient ID: ")
@@ -254,12 +240,12 @@ class PatientManager:
                 return
         print(f"Can't find the Patient with the same id on the system")
 
-    def display_patient_info(self, patient):
-        print(f"\nPatient ID: {patient.pid}")
-        print(f"Name: {patient.name}")
-        print(f"Disease: {patient.disease}")
-        print(f"Gender: {patient.gender}")
-        print(f"Age: {patient.age}")
+    def display_patient_info(self, patient):  # error here
+        print(f"\n{patient.pid}\t", end="")
+        print(f"{patient.name}\t", end="")
+        print(f"{patient.disease}\t", end="")
+        print(f"{patient.gender}\t", end="")
+        print(f"{patient.age}\t", end="")
 
     def edit_patient_info_by_id(self):
         pid = input("\nPlease enter the id of the Patient that you want to edit their information: ")
@@ -276,9 +262,10 @@ class PatientManager:
         print(f"Can't find the patient with the same id in the system")
 
     def display_patients_list(self):  # for this function we need to skip the first entry
+        print("Patient ID\tName\tDisease\tGender\tAge")
         for patient in self.patients:
             self.display_patient_info(patient)
-            print()
+            print(" ")
 
     def write_list_of_patients_to_file(self):
         with open("patients.txt", "w") as f:
@@ -329,8 +316,7 @@ class Management:
                 self.doctor_manager.edit_doctor_info()
                 self.doctor_manager.write_list_of_doctors_to_file()
             elif choice == "6":
-                print(" ")
-                self.display_menu()
+                break
             else:
                 print("Invalid choice. Please try again.")
 
@@ -349,8 +335,7 @@ class Management:
                 self.patient_manager.edit_patient_info_by_id()
                 self.patient_manager.write_list_of_patients_to_file()
             elif choice == "5":
-                print(" ")
-                self.display_menu()
+                break
             else:
                 print("Invalid choice. Please try again.")
 
