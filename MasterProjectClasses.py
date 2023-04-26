@@ -21,6 +21,12 @@ Management:
 1 - Works, just needs some formatting
 2 - Works, just needs some formatting
 3 - Works, but if you open Doctor/Patient, go to Main Menu, then try to exit, it will not exit
+
+Issues:
+- When displaying data it should be represented in a table
+- First entry (categories) from text files are displayed
+- On the Display Menu, if you select Doctor/Patient, then go back to Main Menu and try to exit it will be stuck in a loop
+Note: On original "doctors.txt" file changed spelling of specililty to speciality
 """
 
 
@@ -116,7 +122,7 @@ class DoctorManager:
         else:
             print("Can't find the doctor with the same name on the system.")
 
-    def display_doctor_info(self, doctor):  # for this function we need to skip the first entry
+    def display_doctor_info(self, doctor):
         print(f"\nDoctor ID: {doctor.doctor_id}")
         print(f"Doctor Name: {doctor.name}")
         print(f"Doctor Specialization: {doctor.specialization}")
@@ -201,6 +207,11 @@ class Patient:
 class PatientManager:
     def __init__(self):
         self.patients = []
+        self.pid = []
+        self.name = []
+        self.disease = []
+        self.gender = []
+        self.age = []
         self.read_patients_file()
 
     def format_patient_info_for_file(self, patient):
@@ -218,9 +229,21 @@ class PatientManager:
     def read_patients_file(self):
         with open("patients.txt", "r") as f:
             for line in f:
-                pid, name, disease, gender, age = line.strip().split("_")
+                category = line.strip().split("_")
+                pid = category[0]
+                name = category[1]
+                disease = category[2]
+                gender = category[3]
+                age = category[4]
                 patient = Patient(pid, name, disease, gender, age)
+                self.pid.append(pid)
+                self.name.append(name)
+                self.disease.append(disease)
+                self.gender.append(gender)
+                self.age.append(age)
                 self.patients.append(patient)
+                # any changes done in this function should be done to the doctor class as well
+                # not sure what to do with categories yet
 
     def search_patient_by_id(self):
         pid = input("\nEnter patient ID: ")
@@ -231,7 +254,7 @@ class PatientManager:
                 return
         print(f"Can't find the Patient with the same id on the system")
 
-    def display_patient_info(self, patient):  # for this function we need to skip the first entry
+    def display_patient_info(self, patient):
         print(f"\nPatient ID: {patient.pid}")
         print(f"Name: {patient.name}")
         print(f"Disease: {patient.disease}")
