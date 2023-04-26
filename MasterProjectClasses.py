@@ -85,8 +85,6 @@ class DoctorManager:  # used by display_doctor_menu for managing doctor, class #
 
     def search_doctor_by_id(self):  # searches database for doctor by their ID
         doc_id = input("\nEnter the doctor's ID:\t")
-        print(" ")
-        print("Doctor ID\tName\tSpecialization\tWorking Time\tQualification\tRoom Number")
         for doctor in self.doctors:
             if doctor.get_doctor_id() == doc_id:
                 self.display_doctor_info(doctor)
@@ -97,8 +95,6 @@ class DoctorManager:  # used by display_doctor_menu for managing doctor, class #
 
     def search_doctor_by_name(self):  # searches database for doctor by their name
         doc_name = input("\nEnter the doctor's name:\t")
-        print(" ")
-        print("Doctor ID\tName\tSpecialization\tWorking Time\tQualification\tRoom Number")
         for doctor in self.doctors:
             if doctor.get_name() == doc_name:
                 self.display_doctor_info(doctor)
@@ -217,8 +213,6 @@ class PatientManager:  # used by display_patient_menu for managing patient, clas
 
     def search_patient_by_id(self):  # searches database for patient's ID
         pid = input("\nEnter patient ID: ")
-        print(" ")
-        print("Patient ID\tName\tDisease\tGender\tAge")
         for patient in self.patients:
             if patient.pid == pid:
                 self.display_patient_info(patient)
