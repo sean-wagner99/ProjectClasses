@@ -6,14 +6,14 @@ Doctor:
 1 - Works, but should be formatted to a table // first entry displayed should be hidden
 2 - Works, but should be formatted to a table
 3 - Works, but should be formatted to a table
-4 - Works, but needs to display {doctor_id} instead of "New Doctor added."
+4 - Works
 5 - Works
 6 - Works
 
 Patient:
 1 - Works, but should be formatted to a table // first entry displayed should be hidden
 2 - Works, but should be formatted to a table
-3 - Works, but needs to display {pid} instead of BLANK
+3 - Works
 4 - Works
 5 - Works
 
@@ -98,14 +98,14 @@ class DoctorManager:
                 doctor = Doctor(doc_id, doc_name, doc_spec, doc_timing, doc_qual, doc_rm_num)
                 self.doctors.append(doctor)
 
-    def search_doctor_by_id(self):  # searches for doctor's ID./ Accepts doctor ID from the user./Checks through the doctors list to see if a doctor that entered id exists or not
+    def search_doctor_by_id(self):
         doc_id = input("\nEnter the doctor's ID:\t")
         for doctor in self.doctors:
             if doctor.get_doctor_id() == doc_id:
                 self.display_doctor_info(doctor)
                 return
         else:
-            return print("Can't find the doctor with the entered ID.")
+            return print("Can't find the doctor with the same ID on the system.")
 
     def search_doctor_by_name(self):
         doc_name = input("\nEnter the doctor's name:\t")
@@ -114,11 +114,10 @@ class DoctorManager:
                 self.display_doctor_info(doctor)
                 return
         else:
-            print("Can't find the doctor with the entered name.")
+            print("Can't find the doctor with the same name on the system.")
 
-    def display_doctor_info(self, doctor):
-        print(" ")
-        print(f"Doctor ID: {doctor.doctor_id}")
+    def display_doctor_info(self, doctor):  # for this function we need to skip the first entry
+        print(f"\nDoctor ID: {doctor.doctor_id}")
         print(f"Doctor Name: {doctor.name}")
         print(f"Doctor Specialization: {doctor.specialization}")
         print(f"Doctor Working Time: {doctor.working_time}")
@@ -129,17 +128,17 @@ class DoctorManager:
         doc_id = input("Please enter the id of the doctor that you want to edit their information:\t")
         for doctor in self.doctors:
             if doctor.doctor_id == doc_id:
-                doctor.name = input("Enter new name:\t")
-                doctor.specialization = input("Enter new Specialist:\t")
-                doctor.working_time = input("Enter new Timing:\t")
-                doctor.qualification = input("Enter new Qualification:\t")
-                doctor.room_number = input("Enter new Room number:\t")
+                doctor.name = input("Enter new Name: ")
+                doctor.specialization = input("Enter new Specialist in: ")
+                doctor.working_time = input("Enter new Timing: ")
+                doctor.qualification = input("Enter new Qualification: ")
+                doctor.room_number = input("Enter new Room number: ")
                 self.write_list_of_doctors_to_file()
                 print(f"\nDoctor whose ID is {doc_id} has been edited\n")
                 return
-        print("Cannot find the patient...")
+        print("Cannot find the Doctor with the same id on the system")
 
-    def display_doctors_list(self):
+    def display_doctors_list(self):  # for this function we need to skip the first entry
         for doctor in self.doctors:
             self.display_doctor_info(doctor)
             print()
@@ -154,7 +153,7 @@ class DoctorManager:
         self.doctors.append(doctor)
         with open("doctors.txt", "a") as f:
             f.write(self.format_dr_info(doctor))
-        return print("New doctor added.")
+        return print(f"Doctor whose ID is {doctor.doctor_id} has been added.")
 
 
 class Patient:
@@ -230,9 +229,9 @@ class PatientManager:
                 self.display_patient_info(patient)
                 print(" ")
                 return
-        print("Can't find the patient...")
+        print(f"Can't find the Patient with the same id on the system")
 
-    def display_patient_info(self, patient):
+    def display_patient_info(self, patient):  # for this function we need to skip the first entry
         print(f"\nPatient ID: {patient.pid}")
         print(f"Name: {patient.name}")
         print(f"Disease: {patient.disease}")
@@ -240,7 +239,7 @@ class PatientManager:
         print(f"Age: {patient.age}")
 
     def edit_patient_info_by_id(self):
-        pid = input("\nEnter patient ID to edit: ")
+        pid = input("\nPlease enter the id of the Patient that you want to edit their information: ")
         for patient in self.patients:
             if patient.pid == pid:
                 patient.name = input("Enter new name: ")
@@ -251,9 +250,9 @@ class PatientManager:
                 print(" ")
                 print(f"Patient whose ID is {pid} has been added.\n")
                 return
-        print("Cannot find the patient...")
+        print(f"Can't find the patient with the same id in the system")
 
-    def display_patients_list(self):
+    def display_patients_list(self):  # for this function we need to skip the first entry
         for patient in self.patients:
             self.display_patient_info(patient)
             print()
@@ -268,7 +267,7 @@ class PatientManager:
         self.patients.append(patient)
         with open("patients.txt", "a") as f:
             f.write(self.format_patient_info_for_file(patient))
-        print(f"Patient whose ID is BLANK has been added.\n")
+        print(f"Patient whose ID is {patient.pid} has been added.\n")
 
 
 class Management:
@@ -278,14 +277,14 @@ class Management:
 
     def display_menu(self):
         while True:
-            choice = input(
-                "Welcome to Alberta Hospital (AH) Management System\nSelect from the following options, or "
-                "select 3 to stop:\n1 -  Doctors\n2 -  Patients\n3 -  Exit Program\n")
-            if choice == "1":
+            choice1 = input("Welcome to Alberta Hospital (AH) Management System\nSelect from the following options, or "
+                            "select 3 to stop:\n1 -  Doctors\n2 -  Patients\n3 -  Exit Program\n")
+            if choice1 == "1":
                 self.display_doctor_menu()
-            elif choice == "2":
+            elif choice1 == "2":
                 self.display_patient_menu()
-            elif choice == "3":
+            elif choice1 == "3":
+                print("\nThanks for using the program! Bye")
                 break
             else:
                 print("Invalid choice. Please try again.")
