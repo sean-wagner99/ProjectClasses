@@ -1,32 +1,8 @@
 """
-Sean's Project Classes Branch
+Project Classes
+Group Members: Keith Payuran, Ghunder Tayupon, Sean Wagner
 
-Testing Below
-Doctor:
-1 - Works, but should be formatted to a table // first entry displayed should be hidden
-2 - Works, but should be formatted to a table
-3 - Works, but should be formatted to a table
-4 - Works
-5 - Works
-6 - Works
-
-Patient:
-1 - Works, but should be formatted to a table // first entry displayed should be hidden
-2 - Works, but should be formatted to a table
-3 - Works
-4 - Works
-5 - Works
-
-Management:
-1 - Works, just needs some formatting
-2 - Works, just needs some formatting
-3 - Works, but if you open Doctor/Patient, go to Main Menu, then try to exit, it will not exit
-
-Issues:
-- When displaying data it should be represented in a table
-- First entry (categories) from text files are displayed
-- On the Display Menu, if you select Doctor/Patient, then go back to Main Menu and try to exit it will be stuck in a loop
-Note: On original "doctors.txt" file changed spelling of specililty to speciality
+Note: On original "doctors.txt" file, we changed spelling of specililty (in file) to speciality (in program) - Attached
 """
 
 
